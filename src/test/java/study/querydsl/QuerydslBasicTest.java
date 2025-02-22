@@ -583,5 +583,31 @@ public class QuerydslBasicTest {
                 .execute();
     }
 
+    @Test
+    public void sql_function_호출() {
+        String result = queryFactory
+                .select(Expressions.stringTemplate("function('replace', {0}, {1}, {2})",
+                        member.username, "member", "M"))
+                .from(member)
+                .fetchFirst();
+    }
+
+    @Test
+    public void sql_function_호출2() {
+        queryFactory
+                .select(member.username)
+                .from(member)
+                .where(member.username.eq(Expressions.stringTemplate("function('lower', {0}",
+                        member.username)));
+    }
+
+    @Test
+    public void sql_function_호출2_내장() {
+        queryFactory
+                .select(member.username)
+                .from(member)
+                .where(member.username.eq(member.username.lower()));
+    }
+
 
 }
