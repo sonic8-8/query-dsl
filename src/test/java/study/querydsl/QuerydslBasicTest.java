@@ -456,4 +456,31 @@ public class QuerydslBasicTest {
 
         System.out.println("result = " + result);
     }
+
+    @Test
+    public void 프로젝션_대상이_하나일때() {
+        List<String> result = queryFactory
+                .select(member.username)
+                .from(member)
+                .fetch();
+
+        for (String username : result) {
+            System.out.println("username = " + username);
+        }
+    }
+
+    @Test
+    public void 프로젝션_대상이_둘이상일떄() {
+        List<Tuple> result = queryFactory
+                .select(member.username, member.age)
+                .from(member)
+                .fetch();
+
+        for (Tuple tuple : result) {
+            String username = tuple.get(member.username);
+            Integer age = tuple.get(member.age);
+            System.out.println("username = " + username);
+            System.out.println("age = " + age);
+        }
+    }
 }
