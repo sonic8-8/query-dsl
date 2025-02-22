@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.util.StringUtils.hasText;
+import static org.springframework.util.StringUtils.isEmpty;
 import static study.querydsl.entity.QMember.member;
 import static study.querydsl.entity.QTeam.team;
 
@@ -110,11 +111,11 @@ public class MemberJpaRepository {
     }
 
     private BooleanExpression usernameEq(String username) {
-        return username.isEmpty() ? null : member.username.eq(username);
+        return hasText(username) ? member.username.eq(username) : null;
     }
 
     private BooleanExpression teamNameEq(String teamName) {
-        return teamName.isEmpty() ? null : member.team.name.eq(teamName);
+        return hasText(teamName) ? member.team.name.eq(teamName) : null;
     }
 
     private BooleanExpression ageGoe(Integer ageGoe) {
