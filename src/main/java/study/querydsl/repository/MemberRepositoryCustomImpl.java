@@ -1,14 +1,18 @@
 package study.querydsl.repository;
 
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 import study.querydsl.dto.MemberSearchCondition;
 import study.querydsl.dto.MemberTeamDto;
@@ -122,4 +126,14 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 //        return new PageImpl<>(content, pageable, total);
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchCount);
     }
+
+//    public void sort(String sortField, String sortDirection, Pageable pageable) {
+//        JPAQuery<Member> query = queryFactory
+//                .selectFrom(member);
+//
+//        for (Sort.Order o : pageable.getSort()) {
+//            PathBuilder pathBuilder = new PathBuilder(member.getType(), member.getMetadata());
+//            query.orderBy(new OrderSpecifier(o.isAscending() ? Order.ASC : Order.DESC, pathBuilder.get(o.getProperty())));
+//        }
+//    }
 }
